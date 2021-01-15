@@ -30,6 +30,10 @@ export class HomeComponent implements OnInit, OnDestroy {
 
     this.firstObserver = scratchObserver.subscribe((data) => {
       console.log(data);
+    }, (error) => {
+        console.log(error);
+        prompt(error.message);
+        
     });
   }
 
