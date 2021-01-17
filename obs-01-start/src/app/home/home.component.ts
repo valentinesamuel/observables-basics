@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
-import { Subscription, interval, Observable } from "rxjs";
+import { Subscription, Observable } from "rxjs";
+import { filter, map } from "rxjs/operators"
 
 @Component({
   selector: "app-home",
@@ -22,18 +23,29 @@ export class HomeComponent implements OnInit, OnDestroy {
       setInterval(() => {
         count++;
         observer.next(count);
+        if (count === 2) {
+          observer.complete();
+        }
         if (count > 3) {
           observer.error(Error("Your count is greater than 3"));
         }
       }, 1000);
     });
 
-    this.firstObserver = scratchObserver.subscribe((data) => {
+    this.firstObserver = scratchObserver.pipe(filter(
+      (data)=>{
+        return data > 4;
+      }
+    ) , map((data:number)=>{
+      return "Round: " + (data ) ;
+    })).subscribe((data) => {
       console.log(data);
     }, (error) => {
         console.log(error);
-        prompt(error.message);
-        
+        prompt(error.message);  
+    }, () => {
+      console.log('complete');
+      
     });
   }
 
