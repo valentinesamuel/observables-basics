@@ -19,14 +19,11 @@ export class AppComponent implements OnInit, OnDestroy {
     });
 
     this.userService.myEmitter.subscribe(data => {
-     
-      
       this.canShow = data;
     })
   }
 
-
-  ngOnDestroy() {
+ngOnDestroy() {
     this.activatedSub.unsubscribe();
   }
 }
