@@ -34,7 +34,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
     this.firstObserver = scratchObserver.pipe(filter(
       (data)=>{
-        return data > 4;
+        return data > 0;
       }
     ) , map((data:number)=>{
       return "Round: " + (data ) ;
